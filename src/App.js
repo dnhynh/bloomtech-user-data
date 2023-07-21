@@ -3,7 +3,9 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import GenderChart from './components/GenderChart';
 import { eu_countries } from './data/eu_countries';
+import Overview from './components/Overview';
 import { parseData } from './Helpers';
+import AgeChart from './components/AgeChart';
 
 const App = () => {
   const [rawData, setRawData] = useState([]);
@@ -39,9 +41,11 @@ const App = () => {
   return (
     <div className="App">
       <div className="nav">
-        <h1>User Data</h1>
+        <h1>BloomTech - Users</h1>
       </div>
+      <Overview data={processedData} />
       <GenderChart data={processedData} />
+      <AgeChart data={processedData} />
     </div>
   );
 };

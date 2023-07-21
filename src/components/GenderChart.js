@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Pie, PieChart, Cell } from 'recharts';
+import React from 'react';
+import { Pie, PieChart, Cell, LabelList } from 'recharts';
 
 /**
  * Gender Chart
@@ -13,12 +13,14 @@ const GenderChart = ({ data }) => {
   ];
   return (
     <div>
-      <h2>Gender Chart</h2>
-      <PieChart className="gender-chart" width={400} height={400}>
-        <Pie data={genderData} cx="50%" cy="50%" outerRadius={80} label>
+      <PieChart className="gender-chart" width={600} height={600}>
+        <Pie data={genderData} cx="50%" cy="50%" label>
           {genderData.map((entry, index) => (
-            <Cell key={`cell-${index}`} fill={entry['color']} />
+            <>
+              <Cell key={`cell-${index}`} fill={entry['color']} label={entry['name']} />
+            </>
           ))}
+          <LabelList dataKey={'label'} />
         </Pie>
       </PieChart>
     </div>

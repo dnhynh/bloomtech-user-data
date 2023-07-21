@@ -42,10 +42,24 @@ h1 {
 }
 
 .nav {
-  background-color: #b3cee5;
-  border-bottom: 1px solid #b3cee5;
+  border-bottom: 5px solid black;
 }
 
 h1 {
   font-size: 30px;
+}
+
+.stat {
+  font-size: 1.5rem;
+}
+.overview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: 	#3e3e42;
+  color: #c6e4a2
+}
+
+.group {
+  padding: 20px;
 }

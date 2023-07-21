@@ -12,18 +12,16 @@ const GenderChart = ({ data }) => {
     { value: data['male'], name: 'Male', label: 'Male', color: '#b3cee5' },
   ];
   return (
-    <div>
-      <PieChart className="gender-chart" width={600} height={600}>
-        <Pie dataKey="value" data={genderData} cx="50%" cy="50%" label>
-          {genderData.map((entry, index) => (
-            <>
-              <Cell key={`cell-${index}`} fill={entry['color']} label={entry['name']} />
-            </>
-          ))}
-          <LabelList dataKey={'label'} />
-        </Pie>
-      </PieChart>
-    </div>
+    <PieChart width={400} height={400}>
+      <Pie dataKey="value" data={genderData} cx="50%" cy="50%" label>
+        {genderData.map((entry, index) => (
+          <>
+            <Cell key={`cell-${index}`} fill={entry['color']} label={entry['name']} />
+          </>
+        ))}
+        <LabelList dataKey={'label'} />
+      </Pie>
+    </PieChart>
   );
 };
 

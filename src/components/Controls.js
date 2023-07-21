@@ -1,7 +1,22 @@
 import React from 'react';
+import csvDownload from 'json-to-csv-export';
+import { getCsvHeaders } from '../ProcessData';
 
-const Controls = ({ refreshData, filters, setFilters }) => {
-  const downloadData = () => {};
+const Controls = ({ refreshData, filters, setFilters, data, csvData }) => {
+  const downloadData = (e) => {
+    const dataType = e.target.getAttribute('dataType');
+    const dataToConvert = {
+      data: csvData,
+      filename: 'bloomtech_user_data', // Can pass Filter values here for dynamic file name
+      delimiter: ',',
+      headers: getCsvHeaders(),
+    };
+    if (dataType === 'csv') {
+      csvDownload(dataToConvert);
+    } else {
+      //TODO: Need to Implement API Layer for JSON download
+    }
+  };
 
   //These can be combined into one function but I want to go to sleep soon
   const toggleFemale = () => {
@@ -33,8 +48,8 @@ const Controls = ({ refreshData, filters, setFilters }) => {
       <div className="filters">
         <h2>Filters</h2>
         <form
-          onSubmit={() => {
-            console.log('dummy');
+          onSubmit={(e) => {
+            e.preventDefault();
           }}
         >
           <label>Female</label>
@@ -45,11 +60,15 @@ const Controls = ({ refreshData, filters, setFilters }) => {
           <input type="number" value={filters.older} onChange={setOlder} />
           <label>Younger Than</label>
           <input type="number" value={filters.younger} onChange={setYounger} />
-          {/* <input className="filters-button" type="submit" value="Apply Filters" /> */}
         </form>
       </div>
       <div className="actions">
-        <button onClick={downloadData}>Download Data</button>
+        <button dataType="csv" onClick={downloadData}>
+          Download CSV
+        </button>
+        <button dataType="json" onClick={downloadData}>
+          Download JSON
+        </button>
         <button onClick={refreshData}>Refresh Dataset</button>
         <p style={{ fontSize: '20px' }}>Be careful how many times and how quickly you refresh the dataset. You will be locked out of the API.</p>
       </div>

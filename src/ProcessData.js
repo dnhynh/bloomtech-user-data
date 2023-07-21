@@ -22,12 +22,43 @@ export const parseData = (userData, filters) => {
     other_country: 0,
   };
 
+  const csvData = [];
+
   for (let person of userData) {
     if (checkFilters(person, filters)) {
       tickOnce(processed, person);
+      csvData.push(convertToCsvFormat(person));
     }
   }
-  return processed;
+  return [processed, csvData];
+};
+
+/**
+ * Converts Person Object to CSV Digestible format
+ * @param {Object} person User Details
+ */
+const convertToCsvFormat = (person) => {
+  //TODO: Clean Data
+  const converted = {
+    name: `${person.name.first} ${person.name.last}`,
+    title: person.name.title,
+    dob: person.dob.date,
+    age: person.dob.age,
+    email: person.email,
+    location: `${person.location.street.number} ${person.location.street.name}, ${person.location.city}, ${person.location.state}, ${person.location.country}`,
+    username: person.login.username,
+    phone: person.phone,
+  };
+  return converted;
+};
+
+/**
+ * Gets CSV Headers for CSV Download Function
+ * @returns {Array} CSV Headers
+ */
+export const getCsvHeaders = () => {
+  const csvHeaders = ['name', 'title', 'dob', 'age', 'email', 'location', 'username', 'phone'];
+  return csvHeaders;
 };
 
 /**
@@ -36,7 +67,6 @@ export const parseData = (userData, filters) => {
  * @param {Object} person Person Details
  */
 const tickOnce = (processed, person) => {
-  console.log('TICK');
   processed['total'] += 1;
   tickGender(processed, person);
   tickCountry(processed, person.location.country);

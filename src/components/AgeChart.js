@@ -15,6 +15,7 @@ const AgeChart = ({ data }) => {
   console.log('chartData', chartData);
   return (
     <BarChart width={800} height={500} data={chartData}>
+      {/* Needs Labels */}
       <XAxis dataKey="age" />
       <YAxis dataKey="count" />
       <Tooltip />

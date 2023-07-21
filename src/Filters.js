@@ -21,6 +21,12 @@ const checkGender = (user, filters) => {
   return true;
 };
 
+/**
+ * Check if user passes Age Filter
+ * @param {Object} user
+ * @param {Object} filters
+ * @returns
+ */
 const checkAge = (user, filters) => {
   const { older, younger } = filters;
   const age = user.dob.age;

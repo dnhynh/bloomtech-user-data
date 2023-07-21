@@ -9,6 +9,7 @@ import Controls from './components/Controls';
 
 const App = () => {
   const [rawData, setRawData] = useState([]);
+  const [csvData, setCsvData] = useState([]);
   const [processedData, setProcessedData] = useState({});
   const [filters, setFilters] = useState({
     male: false,
@@ -46,8 +47,9 @@ const App = () => {
 
   // Parse data when raw data or filter values change
   useEffect(() => {
-    const processed = parseData(rawData, filters);
+    const [processed, csvData] = parseData(rawData, filters);
     setProcessedData(processed);
+    setCsvData(csvData);
   }, [rawData, filters]);
 
   /**
@@ -67,7 +69,7 @@ const App = () => {
         <GenderChart data={processedData} />
         <AgeChart data={processedData} />
       </div>
-      <Controls filters={filters} setFilters={setFilters} refreshData={refreshData} />
+      <Controls data={processedData} csvData={csvData} filters={filters} setFilters={setFilters} refreshData={refreshData} />
     </div>
   );
 };

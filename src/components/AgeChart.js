@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { AreaChart, BarChart } from 'recharts';
+import React from 'react';
+import { AreaChart } from 'recharts';
 
 /**
  * Gender Chart
@@ -7,9 +7,7 @@ import { AreaChart, BarChart } from 'recharts';
  * @returns {JSX} Gender Chart Component
  */
 const AgeChart = ({ data }) => {
-  const [chartType, setChartType] = useState('area');
-
-  return <div>{chartType === 'bar' ? <BarChart></BarChart> : <AreaChart></AreaChart>}</div>;
+  return <AreaChart></AreaChart>;
 };
 
 export default AgeChart;

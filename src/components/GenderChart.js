@@ -14,7 +14,7 @@ const GenderChart = ({ data }) => {
   return (
     <div>
       <PieChart className="gender-chart" width={600} height={600}>
-        <Pie data={genderData} cx="50%" cy="50%" label>
+        <Pie dataKey="value" data={genderData} cx="50%" cy="50%" label>
           {genderData.map((entry, index) => (
             <>
               <Cell key={`cell-${index}`} fill={entry['color']} label={entry['name']} />

@@ -45,6 +45,13 @@ h1 {
   border-bottom: 5px solid black;
 }
 
+.main-body {
+  padding:50px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 h1 {
   font-size: 30px;
 }
@@ -62,4 +69,29 @@ h1 {
 
 .group {
   padding: 20px;
+}
+
+.actions {
+  padding: 40px 20px;
+}
+
+.actions button {
+  padding: 10px;
+  margin: 0 10px;
+  font-size: 16px;
+  background-color: #9d2828;
+  color: white;
+}
+.filters-button {
+  background-color: #2478B7;
+  padding: 10px;
+  margin-left: 20px;
+}
+
+.filters input {
+  margin-right: 20px;
+}
+
+.filters label {
+  margin-right: 5px;
 }

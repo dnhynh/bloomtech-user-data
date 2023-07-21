@@ -2,14 +2,20 @@ import './App.css';
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import GenderChart from './components/GenderChart';
-import { eu_countries } from './data/eu_countries';
 import Overview from './components/Overview';
-import { parseData } from './Helpers';
+import { parseData } from './ProcessData';
 import AgeChart from './components/AgeChart';
+import Controls from './components/Controls';
 
 const App = () => {
   const [rawData, setRawData] = useState([]);
   const [processedData, setProcessedData] = useState({});
+  const [filters, setFilters] = useState({
+    male: false,
+    female: false,
+    older: 0,
+    younger: 0,
+  });
 
   /**
    * Fetch User Data on Page Load
@@ -22,6 +28,7 @@ const App = () => {
         .get('https://randomuser.me/api/?results=2500')
         .then((res) => {
           localStorage.setItem('userData', JSON.stringify(res.data.results));
+          setRawData(res.data.results);
         })
         .catch((e) => console.log('error', e));
     } else {
@@ -29,14 +36,26 @@ const App = () => {
     }
   };
 
+  /**
+   * Clear Local Storage and Refetch Data from API
+   */
+  const refreshData = () => {
+    localStorage.removeItem('userData');
+    getUserData();
+  };
+
+  // Parse data when raw data or filter values change
+  useEffect(() => {
+    const processed = parseData(rawData, filters);
+    setProcessedData(processed);
+  }, [rawData, filters]);
+
+  /**
+   * Fetch User Data on Page Load
+   */
   useEffect(() => {
     getUserData();
   }, []);
-
-  useEffect(() => {
-    const processed = parseData(rawData);
-    setProcessedData(processed);
-  }, [rawData]);
 
   return (
     <div className="App">
@@ -44,8 +63,11 @@ const App = () => {
         <h1>BloomTech - Users</h1>
       </div>
       <Overview data={processedData} />
-      <GenderChart data={processedData} />
-      <AgeChart data={processedData} />
+      <div className="main-body">
+        <GenderChart data={processedData} />
+        <AgeChart data={processedData} />
+      </div>
+      <Controls filters={filters} setFilters={setFilters} refreshData={refreshData} />
     </div>
   );
 };

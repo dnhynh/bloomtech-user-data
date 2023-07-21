@@ -1,5 +1,5 @@
 import React from 'react';
-import { AreaChart } from 'recharts';
+import { BarChart, XAxis, YAxis, Tooltip, Bar } from 'recharts';
 
 /**
  * Gender Chart
@@ -7,7 +7,20 @@ import { AreaChart } from 'recharts';
  * @returns {JSX} Gender Chart Component
  */
 const AgeChart = ({ data }) => {
-  return <AreaChart></AreaChart>;
+  const { age } = data;
+  const chartData = [];
+  for (let value in age) {
+    chartData.push({ age: value, count: age[value] });
+  }
+  console.log('chartData', chartData);
+  return (
+    <BarChart width={800} height={500} data={chartData}>
+      <XAxis dataKey="age" />
+      <YAxis dataKey="count" />
+      <Tooltip />
+      <Bar dataKey="count" fill="#8884d8" />
+    </BarChart>
+  );
 };
 
 export default AgeChart;

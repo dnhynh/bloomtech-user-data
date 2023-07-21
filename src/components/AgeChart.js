@@ -12,7 +12,7 @@ const AgeChart = ({ data }) => {
   for (let value in age) {
     chartData.push({ age: value, count: age[value] });
   }
-  console.log('chartData', chartData);
+
   return (
     <BarChart width={800} height={500} data={chartData}>
       {/* Needs Labels */}
